@@ -1,11 +1,12 @@
 import propTypes from "prop-types";
-export const Cabecera = (props) => {
+import React, { useCallback } from "react";
+export const Cabecera = React.memo((props) => {
   const { senyores, setSenyores } = props;
   let nMarcados = senyores.filter(({ marcado }) => marcado).length;
-  const marcarTodos = (e) => {
+  const marcarTodos = useCallback((e) => {
     e.preventDefault();
     setSenyores(senyores.map((senyor) => ({ ...senyor, marcado: true })));
-  };
+  }, []);
   return (
     <header className="cabecera">
       <h1>Señores que te apuntan con el dedo</h1>
@@ -18,7 +19,7 @@ export const Cabecera = (props) => {
       </a>
     </header>
   );
-};
+});
 Cabecera.propTypes = {
   senyores: propTypes.array.isRequired,
   setSenyores: propTypes.func.isRequired,
